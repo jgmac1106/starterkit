@@ -5,15 +5,17 @@
     <h1><?= $page->title() ?></h1>
   </header>
 
-  <div class="notes">
+  <div class="h-feed notes">
     <?php foreach ($page->children()->listed()->sortBy('date', 'desc') as $note): ?>
-    <article class="note">
+    <article class=" h-entry note">
       <header class="note-header">
         <a href="<?= $note->url() ?>">
-          <h2><?= $note->title() ?></h2>
-          <time><?= $note->date()->toDate('d F Y') ?></time>
+          <time class="dt-published"><?= $note->date()->toDate('Y F d') ?></time>
         </a>
       </header>
+       <div class="p-content note-text text">
+      <?= $page->text()->kt() ?>
+    </div>
     </article>
     <?php endforeach ?>
   </div>
