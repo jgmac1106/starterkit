@@ -1,16 +1,25 @@
 <?php snippet('header') ?>
 
 <main>
-  <article class="note">
+  <article class="h-entry note">
     <header class="note-header intro">
-      <h1><?= $page->title() ?></h1>
-      <time class="note-date"><?= $page->date()->toDate('d F Y') ?></time>
+      <div class="h-card">
+        <?php if($author = $page->author()->toUser()): ?>
+          <h2 class="p-name"><?= $author->name() ?></h2>
+             <?php endif ?>
+          <?php if($avatar = $author->avatar()): ?>
+           <figure>
+              <img class="u-photo" src="<?= $avatar->url() ?>">
+            </figure>
+        <?php endif ?>
+   </div>
+      <time class="dt-published note-date"><?= $page->date()->toDate('Y F d') ?></time>
       <?php if ($page->tags()->isNotEmpty()) : ?>
       <p class="note-tags tags"><?= $page->tags() ?></p>
       <?php endif ?>
     </header>
 
-    <div class="note-text text">
+  <div class="p-content note-text text">
       <?= $page->text()->kt() ?>
     </div>
   </article>
